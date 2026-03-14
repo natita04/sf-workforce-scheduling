@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workforce Scheduling Prototypes</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f1f5f9;
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── Password Screen ── */
+    #login-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      padding: 48px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+
+    .logo {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo svg { width: 28px; height: 28px; fill: white; }
+
+    #login-screen h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f172a;
+      text-align: center;
+    }
+
+    .input-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .input-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #64748b;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 16px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      color: #0f172a;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-group input:focus { border-color: #3b82f6; }
+    .input-group input.error { border-color: #ef4444; }
+
+    .error-msg {
+      font-size: 0.8rem;
+      color: #ef4444;
+      display: none;
+    }
+
+    .error-msg.visible { display: block; }
+
+    button.primary {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    button.primary:hover { opacity: 0.9; }
+    button.primary:active { transform: scale(0.98); }
+
+    /* ── Dashboard Screen ── */
+    #dashboard-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      padding: 48px 24px;
+      width: 100%;
+      max-width: 680px;
+    }
+
+    .dash-header {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dash-header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+    }
+
+    @media (max-width: 520px) {
+      .cards { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+
+    .card.link-card { cursor: pointer; text-decoration: none; }
+
+    .card.link-card:hover {
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(59,130,246,0.12);
+    }
+
+    .card.coming-soon { opacity: 0.55; cursor: default; }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-icon svg { width: 22px; height: 22px; }
+
+    .icon-blue { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+    .icon-purple { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+    .icon-green { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+    .icon-orange { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+
+    .card-icon svg { fill: currentColor; }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.3;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #b45309;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+
+    .arrow {
+      margin-left: auto;
+      color: #3b82f6;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .card.link-card:hover .arrow { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <!-- Password Screen -->
+  <div id="login-screen">
+    <div class="logo">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7L12 19.82 4 15.5v-7L12 4.18z"/></svg>
+    </div>
+    <h1>Workforce Scheduling Prototypes</h1>
+    <div class="input-group">
+      <label for="pw-input">Password</label>
+      <input id="pw-input" type="password" placeholder="••••••••••" autocomplete="current-password" />
+      <span class="error-msg" id="error-msg">Incorrect password. Please try again.</span>
+    </div>
+    <button class="primary" id="login-btn">Unlock</button>
+  </div>
+
+  <!-- Dashboard Screen -->
+  <div id="dashboard-screen">
+    <div class="dash-header">
+      <div class="logo">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7L12 19.82 4 15.5v-7L12 4.18z"/></svg>
+      </div>
+      <h1>Workforce Scheduling Prototypes</h1>
+    </div>
+
+    <div class="cards">
+
+      <!-- Workforce Scheduling Flows -->
+      <a class="card link-card" href="https://unified-scheduling-flows.vercel.app/" target="_blank" rel="noopener">
+        <div class="card-icon icon-blue">
+          <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+        </div>
+        <span class="card-title">Workforce Scheduling Flows</span>
+        <span class="arrow">→</span>
+      </a>
+
+      <!-- Workforce Scheduling Gantt -->
+      <a class="card link-card" href="https://unified-scheduling-gantt.vercel.app/" target="_blank" rel="noopener">
+        <div class="card-icon icon-purple">
+          <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+        </div>
+        <span class="card-title">Workforce Scheduling Gantt</span>
+        <span class="arrow">→</span>
+      </a>
+
+      <!-- Work Type Creation Flow -->
+      <div class="card coming-soon">
+        <div class="card-icon icon-green">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+        </div>
+        <span class="card-title">Work Type Creation Flow</span>
+        <span class="badge">Coming Soon</span>
+      </div>
+
+      <!-- End Customer Scheduling Flow -->
+      <div class="card coming-soon">
+        <div class="card-icon icon-orange">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </div>
+        <span class="card-title">End Customer Scheduling Flow</span>
+        <span class="badge">Coming Soon</span>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const CORRECT_PASSWORD = 'salesforce';
+    const SESSION_KEY = 'uw_auth';
+
+    const loginScreen = document.getElementById('login-screen');
+    const dashScreen = document.getElementById('dashboard-screen');
+    const pwInput = document.getElementById('pw-input');
+    const loginBtn = document.getElementById('login-btn');
+    const errorMsg = document.getElementById('error-msg');
+
+    function showDashboard() {
+      loginScreen.style.display = 'none';
+      dashScreen.style.display = 'flex';
+    }
+
+    // Persist session across refreshes
+    if (sessionStorage.getItem(SESSION_KEY) === '1') {
+      showDashboard();
+    }
+
+    function attemptLogin() {
+      if (pwInput.value === CORRECT_PASSWORD) {
+        sessionStorage.setItem(SESSION_KEY, '1');
+        pwInput.classList.remove('error');
+        errorMsg.classList.remove('visible');
+        showDashboard();
+      } else {
+        pwInput.classList.add('error');
+        errorMsg.classList.add('visible');
+        pwInput.select();
+      }
+    }
+
+    loginBtn.addEventListener('click', attemptLogin);
+    pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') attemptLogin(); });
+  </script>
+</body>
+</html>
