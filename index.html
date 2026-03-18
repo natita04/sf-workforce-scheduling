@@ -204,12 +204,43 @@
     .icon-green { background: rgba(16, 185, 129, 0.1); color: #10b981; }
     .icon-orange { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
 
+    .card-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     .card-title {
       font-size: 0.92rem;
       font-weight: 700;
       color: #0f172a;
       line-height: 1.3;
     }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border: none;
+      background: transparent;
+      border-radius: 5px;
+      color: #94a3b8;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s, color 0.15s, background 0.15s;
+      padding: 0;
+    }
+
+    .copy-btn svg { width: 13px; height: 13px; fill: currentColor; pointer-events: none; }
+
+    .card.link-card:hover .copy-btn { opacity: 1; }
+
+    .copy-btn:hover { color: #3b82f6; background: rgba(59,130,246,0.08); }
+
+    .copy-btn.copied { color: #10b981; opacity: 1; }
 
     .badge {
       display: inline-flex;
@@ -291,7 +322,10 @@
           <div class="card-icon icon-blue">
             <svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
           </div>
-          <span class="card-title">Unified Scheduling Flow</span>
+          <div class="card-title-row">
+            <span class="card-title">Unified Scheduling Flow</span>
+            <button class="copy-btn" title="Copy link"><svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
+          </div>
           <span class="badge badge-green">Ready for Review</span>
           <span class="arrow">→</span>
         </a>
@@ -300,7 +334,10 @@
           <div class="card-icon icon-blue">
             <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
           </div>
-          <span class="card-title">Unified Operations Console</span>
+          <div class="card-title-row">
+            <span class="card-title">Unified Operations Console</span>
+            <button class="copy-btn" title="Copy link"><svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
+          </div>
           <span class="badge badge-green">Ready for Review</span>
           <span class="arrow">→</span>
         </a>
@@ -309,7 +346,10 @@
           <div class="card-icon icon-blue">
             <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
           </div>
-          <span class="card-title">Shift Manager (MWFM)</span>
+          <div class="card-title-row">
+            <span class="card-title">Shift Manager (MWFM)</span>
+            <button class="copy-btn" title="Copy link"><svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
+          </div>
           <span class="badge badge-blue">Ongoing</span>
           <span class="arrow">→</span>
         </a>
@@ -326,7 +366,10 @@
           <div class="card-icon icon-blue">
             <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
           </div>
-          <span class="card-title">LPI Scheduling Flow</span>
+          <div class="card-title-row">
+            <span class="card-title">LPI Scheduling Flow</span>
+            <button class="copy-btn" title="Copy link"><svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
+          </div>
           <span class="badge badge-yellow">V1</span>
           <span class="arrow">→</span>
         </a>
@@ -335,7 +378,10 @@
           <div class="card-icon icon-blue">
             <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
           </div>
-          <span class="card-title">Guest Scheduling Flow</span>
+          <div class="card-title-row">
+            <span class="card-title">Guest Scheduling Flow</span>
+            <button class="copy-btn" title="Copy link"><svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
+          </div>
           <span class="badge badge-yellow">V1</span>
           <span class="arrow">→</span>
         </a>
@@ -344,7 +390,10 @@
           <div class="card-icon icon-blue">
             <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
           </div>
-          <span class="card-title">Register for Group Appt</span>
+          <div class="card-title-row">
+            <span class="card-title">Register for Group Appt</span>
+            <button class="copy-btn" title="Copy link"><svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
+          </div>
           <span class="badge badge-yellow">V1</span>
           <span class="arrow">→</span>
         </a>
@@ -361,7 +410,10 @@
           <div class="card-icon icon-blue">
             <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
           </div>
-          <span class="card-title">AGX for PSS</span>
+          <div class="card-title-row">
+            <span class="card-title">AGX for PSS</span>
+            <button class="copy-btn" title="Copy link"><svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
+          </div>
           <span class="badge badge-yellow">V1</span>
           <span class="arrow">→</span>
         </a>
@@ -378,7 +430,10 @@
           <div class="card-icon icon-blue">
             <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
           </div>
-          <span class="card-title">Work Type Creation</span>
+          <div class="card-title-row">
+            <span class="card-title">Work Type Creation</span>
+            <button class="copy-btn" title="Copy link"><svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
+          </div>
           <span class="badge badge-yellow">V1</span>
           <span class="arrow">→</span>
         </a>
@@ -431,6 +486,24 @@
 
     loginBtn.addEventListener('click', attemptLogin);
     pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') attemptLogin(); });
+
+    // Copy link buttons
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('.copy-btn');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const url = btn.closest('a').href;
+      navigator.clipboard.writeText(url).then(() => {
+        btn.classList.add('copied');
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = orig;
+        }, 1500);
+      });
+    });
   </script>
 </body>
 </html>
